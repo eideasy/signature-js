@@ -1,0 +1,38 @@
+{
+  "name": "@eid-easy/signature",
+  "version": "1.0.0",
+  "description": "Official eID Easy javascript library for creating signatures via eID Easy API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "eideasy",
+    "eid easy",
+    "single method signature",
+    "electronic signature",
+    "qes",
+    "qualified electronic signature"
+  ],
+  "author": {
+    "name": "Mats-Joonas Kulla",
+    "email": "mj@eideasy.com",
+    "url": "https://eideasy.com/"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.59.8",
+    "@typescript-eslint/parser": "^5.59.8",
+    "eslint": "^8.41.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jest": "^27.2.1",
+    "eslint-webpack-plugin": "^4.0.1",
+    "webpack": "^5.84.1",
+    "webpack-cli": "^5.1.1"
+  },
+  "dependencies": {
+    "axios": "^1.4.0"
+  }
+}
