@@ -1,5 +1,5 @@
 {
-  "name": "@eid-easy/signature",
+  "name": "@eid-easy/signature-js",
   "version": "1.0.0",
   "description": "Official eID Easy javascript library for creating signatures via eID Easy API",
   "main": "index.js",
