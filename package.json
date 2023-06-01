@@ -43,7 +43,7 @@
     "@vuepress/plugin-search": "2.0.0-beta.62",
     "@vuepress/theme-default": "2.0.0-beta.62",
     "@vuepress/utils": "2.0.0-beta.62",
-    "chalk": "^5.2.0",
+    "chalk": "^4.1.2",
     "conventional-changelog-cli": "^2.2.2",
     "cz-conventional-changelog": "^3.3.0",
     "dotenv": "^16.1.3",
