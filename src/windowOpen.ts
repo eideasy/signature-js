@@ -1,6 +1,20 @@
+interface Parent {
+  width: number,
+  height: number,
+  left: number,
+  top: number,
+}
+
+interface Child {
+  width: number,
+  height: number,
+}
 const calculateChildPosition = function calculateChildPosition({
   parent,
   child,
+}: {
+  parent: Parent,
+  child: Child,
 }) {
   // center the child window relative to the parent window
   return {

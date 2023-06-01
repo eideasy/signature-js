@@ -1,3 +1,3 @@
-function dataetst() {
-  return 'dataetst';
-}
+import Signature from './Signature';
+
+export default Signature;
