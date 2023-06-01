@@ -16,10 +16,10 @@ class EidEasy {
 
   successCalled = false;
 
-  pollTimeout = null;
+  pollTimeout: number = null;
 
   constructor({
-    baseUrl = 'https://id.eideasy.com',
+    baseUrl = 'https://id.eaideasy.com',
     onSuccess = () => {
     },
     onFail = () => {
@@ -41,7 +41,7 @@ class EidEasy {
     window.addEventListener('message', this.messageHandler);
   }
 
-  handleMessage(event) {
+  handleMessage(event: MessageEvent) {
     const { data } = event;
 
     if (data.sender !== 'EIDEASY_SINGLE_METHOD_SIGNATURE') {
@@ -60,13 +60,23 @@ class EidEasy {
     docId,
     actionType,
     country,
+  }: {
+    clientId: string,
+    docId: string,
+    actionType: string,
+    country: string,
   }) {
     this.successCalled = false;
-    const _self = this;
-    const url: string = `${this.baseUrl}/single-method-signature?client_id=${clientId}&doc_id=${docId}&method=${actionType}&country=${country}`;
+    const self = this;
+    const url: string = `${this.baseUrl}/single-method-signature`
+      + `?client_id=${clientId}`
+      + `&doc_id=${docId}`
+      + `&method=${actionType}`
+      + `&country=${country}`;
+
     const windowOpenResult = windowOpen({
       url,
-      onClosed: _self.onPopupWindowClosed,
+      onClosed: self.onPopupWindowClosed,
     });
 
     this.openedWindow = windowOpenResult.window;
@@ -77,26 +87,26 @@ class EidEasy {
     this.poll(docId, clientId);
   }
 
-  poll(docId, clientId) {
-    console.log('Start polling');
-    const _self = this;
+  poll(docId: string, clientId: string) {
+    console.log('POLL');
+    const self = this;
     this.pollTimeout = window.setTimeout(() => {
       axios.post(`${this.baseUrl}/api/signatures/signing-session/status`, {
         doc_id: docId,
         client_id: clientId,
       }).then((response) => {
         if (response.data && response.data.signing_session_status === 'SIGNED') {
-          _self.handleSuccess(response.data.result);
+          self.handleSuccess(response.data.result);
           return;
         }
-        _self.poll(docId, clientId);
+        self.poll(docId, clientId);
       }).catch((error) => {
         console.log(error);
       });
     }, 2000);
   }
 
-  handleSuccess(result) {
+  handleSuccess(result: object) {
     if (this.successCalled) {
       console.log('Success already called');
       return;
@@ -112,7 +122,7 @@ class EidEasy {
     this.onSuccess(result);
   }
 
-  handleFail(error, isRetryAllowed) {
+  handleFail(error: object, isRetryAllowed: boolean) {
     // End user can still retry the actions in the popup window, so we don't want to close it yet.
     if (isRetryAllowed) {
       return;
