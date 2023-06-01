@@ -1,13 +1,18 @@
 {
   "name": "@eid-easy/signature-js",
   "version": "1.0.0",
+  "sri": "sha256-RJ8+dA4NmL4gcU7rxSOkgNo3rk15NeGeveVN0dmwla4=",
   "productionReleaseVersion": "1.0.0",
   "productionReleaseSri": "sha256-RJ8+dA4NmL4gcU7rxSOkgNo3rk15NeGeveVN0dmwla4=",
   "description": "Official eID Easy javascript library for creating signatures via eID Easy API",
-  "main": "index.js",
+  "main": "dist/eideasy-signature.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "webpack": "webpack",
     "build": "npm run webpack -- --mode=production",
+    "start": "npm run webpack -- --mode=development --watch",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
     "test": "echo \"Error: no test specified\" && exit 1",
