@@ -17,8 +17,7 @@ const preId = args.preid
   || (semver.prerelease(currentVersion) && semver.prerelease(currentVersion)[0]);
 
 const isDryRun = args.dry;
-let { skipTests } = args;
-skipTests = true; // TODO: remove this line when tests are ready
+const { skipTests } = args;
 const { skipBuild } = args;
 
 const versionIncrements = [
