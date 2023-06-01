@@ -1,0 +1,25 @@
+
+name: github-release
+on:
+  push:
+    tags:
+    - 'v*'
+
+jobs:
+  github-release:
+    name: "Github Release"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Create Release for Tag
+        id: release_tag
+        uses: yyx990803/release-tag@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          body: |
+            Please refer to [CHANGELOG.md](https://github.com/eideasy/signature-js/blob/master/CHANGELOG.md) for details.
