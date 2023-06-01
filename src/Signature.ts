@@ -68,11 +68,11 @@ class EidEasy {
   }) {
     this.successCalled = false;
     const self = this;
-    const url: string = `${this.baseUrl}/single-method-signature
-      ?client_id=${clientId}
-      &doc_id=${docId}
-      &method=${actionType}
-      &country=${country}`;
+    const url: string = `${this.baseUrl}/single-method-signature`
+      + `?client_id=${clientId}`
+      + `&doc_id=${docId}`
+      + `&method=${actionType}`
+      + `&country=${country}`;
 
     const windowOpenResult = windowOpen({
       url,
@@ -88,7 +88,7 @@ class EidEasy {
   }
 
   poll(docId: string, clientId: string) {
-    console.log('Start polling');
+    console.log('POLL');
     const self = this;
     this.pollTimeout = window.setTimeout(() => {
       axios.post(`${this.baseUrl}/api/signatures/signing-session/status`, {
