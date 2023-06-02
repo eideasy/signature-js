@@ -1,9 +1,9 @@
 # Guide
 
 ## Introduction
-eideasy-browser-client is a handy tool that you can use to handle the client side parts of the identification and signing flows when using eID Easy API. 
+signature-js is a handy library that you can use to handle the browser-side parts of the signing flows when using eID Easy API.
 
-A typical signing implementation using the eID Easy API and the eideasy-browser-client would look like this:
+A typical signing implementation using the eID Easy API and the signature-js would look like this:
 1. Prepare the files for signing by sending a server side request to the [/prepare-files-for-signing](https://documenter.getpostman.com/view/3869493/Szf6WoG1#74939bae-2c9b-459c-9f0b-8070d2bd32f7) endpoint.
 2. /prepare-files-for-signing endpoint returns a docId.
 3. [Create a browser client instance](/config-reference/#creating-the-client-for-signing) using the docId.
@@ -19,7 +19,7 @@ A typical signing implementation using the eID Easy API and the eideasy-browser-
    <CodeGroupItem title="YARN" active>
 
 ```bash:no-line-numbers
-yarn add @eid-easy/eideasy-browser-client
+yarn add @eid-easy/signature-js
 ```
 
   </CodeGroupItem>
@@ -27,28 +27,14 @@ yarn add @eid-easy/eideasy-browser-client
   <CodeGroupItem title="NPM">
 
 ```bash:no-line-numbers
-npm install @eid-easy/eideasy-browser-client
+npm install @eid-easy/signature-js
 ```
 
   </CodeGroupItem>
 </CodeGroup>
 
-2. Import createClient:
+2. Import Signature:
 
 ```javascript
-import createClient from '@eid-easy/eideasy-browser-client';
-```
-
-### CDN
-
-1. Add the script tag:
-
-```html:no-v-pre
-<script src="https://cdn.jsdelivr.net/npm/@eid-easy/eideasy-browser-client@{{ $theme.version }}/dist/eideasy-browser-client.js" integrity="{{ $theme.sri }}" crossorigin="anonymous"></script>
-```
-
-2. Use the eidEasyBrowserClient object to access createClient:
-
-```javascript
-const createClient = window.eidEasyBrowserClient.createClient;
+import Signature from '@eid-easy/signature-js';
 ```
