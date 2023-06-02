@@ -27,10 +27,10 @@ class EidEasy {
     onPopupWindowClosed = () => {
     },
   }: {
-    baseUrl: string,
-    onSuccess: Function,
-    onFail: Function,
-    onPopupWindowClosed: Function,
+    baseUrl?: string,
+    onSuccess?: Function,
+    onFail?: Function,
+    onPopupWindowClosed?: Function,
   }) {
     this.baseUrl = baseUrl;
     this.onSuccess = onSuccess;
@@ -68,11 +68,12 @@ class EidEasy {
   }) {
     this.successCalled = false;
     const self = this;
-    const url: string = `${this.baseUrl}/single-method-signature`
-      + `?client_id=${clientId}`
-      + `&doc_id=${docId}`
-      + `&method=${actionType}`
-      + `&country=${country}`;
+    const url: string = this.getSingleMethodSignaturePageUrl({
+      clientId,
+      docId,
+      actionType,
+      country,
+    });
 
     const windowOpenResult = windowOpen({
       url,
@@ -120,6 +121,31 @@ class EidEasy {
     }
 
     this.onSuccess(result);
+  }
+
+  getSingleMethodSignaturePageUrl({
+    clientId,
+    docId,
+    actionType,
+    country,
+  }: {
+    clientId: string,
+    docId: string,
+    actionType: string,
+    country: string,
+  }): string {
+    const base = `${this.baseUrl}/single-method-signature`;
+
+    const urlParams = [
+      `client_id=${clientId}`,
+      `doc_id=${docId}`,
+      `method=${actionType}`,
+      `country=${country}`,
+    ];
+
+    const queryString = urlParams.join('&');
+
+    return `${base}?${queryString}`;
   }
 
   handleFail(error: object, isRetryAllowed: boolean) {
