@@ -19,7 +19,7 @@ class EidEasy {
   pollTimeout: number = null;
 
   constructor({
-    baseUrl = 'https://id.eaideasy.com',
+    baseUrl = 'https://id.eideasy.com',
     onSuccess = () => {
     },
     onFail = () => {
@@ -49,7 +49,7 @@ class EidEasy {
     }
 
     if (data.type === 'SUCCESS') {
-      this.handleSuccess(data.result);
+      this.handleSuccess();
     } else if (data.type === 'FAIL') {
       this.handleFail(data.error, data.isRetryAllowed);
     }
@@ -89,7 +89,6 @@ class EidEasy {
   }
 
   poll(docId: string, clientId: string) {
-    console.log('POLL');
     const self = this;
     this.pollTimeout = window.setTimeout(() => {
       axios.post(`${this.baseUrl}/api/signatures/signing-session/status`, {
@@ -107,7 +106,7 @@ class EidEasy {
     }, 2000);
   }
 
-  handleSuccess(result: object) {
+  handleSuccess() {
     if (this.successCalled) {
       console.log('Success already called');
       return;
@@ -120,7 +119,17 @@ class EidEasy {
       console.error(e);
     }
 
-    this.onSuccess(result);
+    this.onSuccess();
+  }
+
+  handleFail(error: object, isRetryAllowed: boolean) {
+    // End user can still retry the actions in the popup window, so we don't want to close it yet.
+    if (isRetryAllowed) {
+      return;
+    }
+
+    this.openedWindow.close();
+    this.onFail(error);
   }
 
   getSingleMethodSignaturePageUrl({
@@ -146,16 +155,6 @@ class EidEasy {
     const queryString = urlParams.join('&');
 
     return `${base}?${queryString}`;
-  }
-
-  handleFail(error: object, isRetryAllowed: boolean) {
-    // End user can still retry the actions in the popup window, so we don't want to close it yet.
-    if (isRetryAllowed) {
-      return;
-    }
-
-    this.openedWindow.close();
-    this.onFail(error);
   }
 
   destroy() {
