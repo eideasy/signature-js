@@ -96,7 +96,7 @@ class EidEasy {
         client_id: clientId,
       }).then((response) => {
         if (response.data && response.data.signing_session_status === 'SIGNED') {
-          self.handleSuccess(response.data.result);
+          self.handleSuccess();
           return;
         }
         self.poll(docId, clientId);
