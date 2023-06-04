@@ -19,7 +19,7 @@ class EidEasy {
   pollTimeout: number = null;
 
   constructor({
-    baseUrl = 'https://id.eaideasy.com',
+    baseUrl = 'https://id.eideasy.com',
     onSuccess = () => {
     },
     onFail = () => {
@@ -27,10 +27,10 @@ class EidEasy {
     onPopupWindowClosed = () => {
     },
   }: {
-    baseUrl: string,
-    onSuccess: Function,
-    onFail: Function,
-    onPopupWindowClosed: Function,
+    baseUrl?: string,
+    onSuccess?: Function,
+    onFail?: Function,
+    onPopupWindowClosed?: Function,
   }) {
     this.baseUrl = baseUrl;
     this.onSuccess = onSuccess;
@@ -49,7 +49,7 @@ class EidEasy {
     }
 
     if (data.type === 'SUCCESS') {
-      this.handleSuccess(data.result);
+      this.handleSuccess();
     } else if (data.type === 'FAIL') {
       this.handleFail(data.error, data.isRetryAllowed);
     }
@@ -68,11 +68,12 @@ class EidEasy {
   }) {
     this.successCalled = false;
     const self = this;
-    const url: string = `${this.baseUrl}/single-method-signature`
-      + `?client_id=${clientId}`
-      + `&doc_id=${docId}`
-      + `&method=${actionType}`
-      + `&country=${country}`;
+    const url: string = this.getSingleMethodSignaturePageUrl({
+      clientId,
+      docId,
+      actionType,
+      country,
+    });
 
     const windowOpenResult = windowOpen({
       url,
@@ -88,7 +89,6 @@ class EidEasy {
   }
 
   poll(docId: string, clientId: string) {
-    console.log('POLL');
     const self = this;
     this.pollTimeout = window.setTimeout(() => {
       axios.post(`${this.baseUrl}/api/signatures/signing-session/status`, {
@@ -96,7 +96,7 @@ class EidEasy {
         client_id: clientId,
       }).then((response) => {
         if (response.data && response.data.signing_session_status === 'SIGNED') {
-          self.handleSuccess(response.data.result);
+          self.handleSuccess();
           return;
         }
         self.poll(docId, clientId);
@@ -106,7 +106,7 @@ class EidEasy {
     }, 2000);
   }
 
-  handleSuccess(result: object) {
+  handleSuccess() {
     if (this.successCalled) {
       console.log('Success already called');
       return;
@@ -119,7 +119,7 @@ class EidEasy {
       console.error(e);
     }
 
-    this.onSuccess(result);
+    this.onSuccess();
   }
 
   handleFail(error: object, isRetryAllowed: boolean) {
@@ -130,6 +130,31 @@ class EidEasy {
 
     this.openedWindow.close();
     this.onFail(error);
+  }
+
+  getSingleMethodSignaturePageUrl({
+    clientId,
+    docId,
+    actionType,
+    country,
+  }: {
+    clientId: string,
+    docId: string,
+    actionType: string,
+    country: string,
+  }): string {
+    const base = `${this.baseUrl}/single-method-signature`;
+
+    const urlParams = [
+      `client_id=${clientId}`,
+      `doc_id=${docId}`,
+      `method=${actionType}`,
+      `country=${country}`,
+    ];
+
+    const queryString = urlParams.join('&');
+
+    return `${base}?${queryString}`;
   }
 
   destroy() {

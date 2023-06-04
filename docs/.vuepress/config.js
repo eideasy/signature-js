@@ -7,9 +7,9 @@ import {searchPlugin} from '@vuepress/plugin-search';
 const __dirname = getDirname(import.meta.url);
 
 export default {
-  title: 'eideasy-browser-client',
+  title: 'signature-js',
   head: [['link', {rel: 'icon', href: '/assets/img/eid-easy-icon.png'}]],
-  description: 'eideasy-browser-client is a handy tool that you can use to handle the client side parts of the identification and signing flows when using eID Easy API.',
+  description: 'signature-js is an official eID Easy browser-side JavaScript library. You can use signature-js to handle eID Easy signing flows in your web application.',
   theme: defaultTheme({
     logo: '/assets/img/eid-easy-logo.png',
     version: productionReleaseVersion,

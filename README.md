@@ -7,7 +7,8 @@
 </p>
 
 # eID Easy Signature JS
-@eid-easy/signature-js is an official eID Easy javascript library for creating signatures via eID Easy API.
+eid-easy/signature-js is an official eID Easy browser-side JavaScript library. You can use signature-js to 
+handle eID Easy signing flows in your web application.
 
 ## Documentation
-The docs are available at TODO
+The docs are available at [https://docs.eideasy.com/electronic-signatures/](https://docs.eideasy.com/electronic-signatures/)
