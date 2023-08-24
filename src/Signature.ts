@@ -39,13 +39,14 @@ class EidEasy {
     onPopupWindowClosed?: Function,
     loggingEnabled?: boolean,
   }) {
-    this.logger = new Logger({ enabled: loggingEnabled });
+    const instanceId = this.generateInstanceId();
+    this.logger = new Logger({ enabled: loggingEnabled, instanceId });
     this.baseUrl = baseUrl;
     this.onSuccess = onSuccess;
     this.onFail = onFail;
     this.onPopupWindowClosed = onPopupWindowClosed;
     this.messageHandler = this.handleMessage.bind(this);
-    this.windowTarget = this.generateInstanceId();
+    this.windowTarget = instanceId;
 
     this.logger.info('EidEasy windowTarget', this.windowTarget);
 
@@ -76,8 +77,10 @@ class EidEasy {
     this.logger.info('EidEasy handleMessage', event);
 
     if (data.type === 'SUCCESS') {
+      this.logger.info('EidEasy triggering handleSuccess on success message.');
       this.handleSuccess();
     } else if (data.type === 'FAIL') {
+      this.logger.info('EidEasy triggering handleFail on fail message.');
       this.handleFail(data.error, data.isRetryAllowed);
     }
   }
@@ -137,6 +140,7 @@ class EidEasy {
         client_id: clientId,
       }).then((response) => {
         if (response.data && response.data.signing_session_status === 'SIGNED') {
+          self.logger.info('Calling handleSuccess signing_session_status SIGNED in poller');
           self.handleSuccess();
           return;
         }
