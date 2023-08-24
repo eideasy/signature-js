@@ -1,5 +1,6 @@
 import axios from 'axios';
 import windowOpen from './windowOpen';
+import Logger from './Logger';
 
 class EidEasy {
   baseUrl: string;
@@ -18,6 +19,10 @@ class EidEasy {
 
   pollTimeout: number = null;
 
+  instanceId: string = null;
+
+  logger: Logger = null;
+
   constructor({
     baseUrl = 'https://id.eideasy.com',
     onSuccess = () => {
@@ -26,19 +31,30 @@ class EidEasy {
     },
     onPopupWindowClosed = () => {
     },
+    loggingEnabled = false,
   }: {
     baseUrl?: string,
     onSuccess?: Function,
     onFail?: Function,
     onPopupWindowClosed?: Function,
+    loggingEnabled?: boolean,
   }) {
+    this.logger = new Logger({ enabled: loggingEnabled });
     this.baseUrl = baseUrl;
     this.onSuccess = onSuccess;
     this.onFail = onFail;
     this.onPopupWindowClosed = onPopupWindowClosed;
     this.messageHandler = this.handleMessage.bind(this);
+    this.instanceId = this.generateInstanceId();
 
+    this.logger.info('EidEasy instanceId', this.instanceId);
+    console.log('EidEasy instanceId', this.instanceId);
     window.addEventListener('message', this.messageHandler);
+  }
+
+  generateInstanceId(length: number = 32): string {
+    // eslint-disable-next-line no-bitwise
+    return [...Array(length)].map(() => (~~(Math.random() * 36)).toString(36)).join('');
   }
 
   handleMessage(event: MessageEvent) {
@@ -101,14 +117,14 @@ class EidEasy {
         }
         self.poll(docId, clientId);
       }).catch((error) => {
-        console.log(error);
+        self.logger.info(error);
       });
     }, 2000);
   }
 
   handleSuccess() {
     if (this.successCalled) {
-      console.log('Success already called');
+      this.logger.info('Success already called');
       return;
     }
 
@@ -116,7 +132,7 @@ class EidEasy {
     try {
       this.openedWindow.close();
     } catch (e) {
-      console.error(e);
+      this.logger.error(e);
     }
 
     this.onSuccess();
