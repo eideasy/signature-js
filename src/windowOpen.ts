@@ -1,3 +1,5 @@
+import Logger from './Logger';
+
 interface Parent {
   width: number,
   height: number,
@@ -24,11 +26,15 @@ const calculateChildPosition = function calculateChildPosition({
 };
 
 const windowOpen = function windowOpen({
+  target,
   url,
   onClosed,
+  logger,
 }: {
+  target: string,
   url: string,
   onClosed: Function,
+  logger: Logger,
 }) {
   const child = {
     width: 800,
@@ -60,8 +66,8 @@ const windowOpen = function windowOpen({
     `top=${childPosition.top}`,
   ];
 
-  const newWindow = window.open(url, 'eID Easy', features.join(', '));
-  console.log(url);
+  logger.info('Opening window at url: ', url);
+  const newWindow = window.open(url, target, features.join(', '));
 
   const timer = setInterval(() => {
     if (newWindow.closed) {

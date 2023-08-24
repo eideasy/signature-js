@@ -19,7 +19,7 @@ class EidEasy {
 
   pollTimeout: number = null;
 
-  instanceId: string = null;
+  windowTarget: string = null;
 
   logger: Logger = null;
 
@@ -45,10 +45,10 @@ class EidEasy {
     this.onFail = onFail;
     this.onPopupWindowClosed = onPopupWindowClosed;
     this.messageHandler = this.handleMessage.bind(this);
-    this.instanceId = this.generateInstanceId();
+    this.windowTarget = this.generateInstanceId();
 
-    this.logger.info('EidEasy instanceId', this.instanceId);
-    console.log('EidEasy instanceId', this.instanceId);
+    this.logger.info('EidEasy windowTarget', this.windowTarget);
+
     window.addEventListener('message', this.messageHandler);
   }
 
@@ -61,8 +61,19 @@ class EidEasy {
     const { data } = event;
 
     if (data.sender !== 'EIDEASY_SINGLE_METHOD_SIGNATURE') {
+      this.logger.info('Skipping this message because the data.sender is not EIDEASY_SINGLE_METHOD_SIGNATURE, message data: ', data);
       return;
     }
+
+    if (data.windowTarget !== this.windowTarget) {
+      this.logger.info('Skipping this message because the windowTarget in message data does not match', {
+        messageDataWindowTarget: data.windowTarget,
+        thisWindowTarget: this.windowTarget,
+      });
+      return;
+    }
+
+    this.logger.info('EidEasy handleMessage', event);
 
     if (data.type === 'SUCCESS') {
       this.handleSuccess();
@@ -89,11 +100,17 @@ class EidEasy {
       docId,
       actionType,
       country,
+      windowTarget: this.windowTarget,
     });
 
     const windowOpenResult = windowOpen({
+      target: this.windowTarget,
       url,
-      onClosed: self.onPopupWindowClosed,
+      onClosed: () => {
+        self.stop();
+        self.onPopupWindowClosed();
+      },
+      logger: this.logger,
     });
 
     this.openedWindow = windowOpenResult.window;
@@ -102,6 +119,14 @@ class EidEasy {
       this.pollTimeout = null;
     }
     this.poll(docId, clientId);
+  }
+
+  stop() {
+    window.clearTimeout(this.pollTimeout);
+    this.pollTimeout = null;
+    if (this.openedWindow.close) {
+      this.openedWindow.close();
+    }
   }
 
   poll(docId: string, clientId: string) {
@@ -153,11 +178,13 @@ class EidEasy {
     docId,
     actionType,
     country,
+    windowTarget,
   }: {
     clientId: string,
     docId: string,
     actionType: string,
     country: string,
+    windowTarget: string,
   }): string {
     const base = `${this.baseUrl}/single-method-signature`;
 
@@ -166,6 +193,7 @@ class EidEasy {
       `doc_id=${docId}`,
       `method=${actionType}`,
       `country=${country}`,
+      `window_target=${windowTarget}`,
     ];
 
     const queryString = urlParams.join('&');

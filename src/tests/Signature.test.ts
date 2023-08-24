@@ -9,6 +9,7 @@ const dataSets = [
       docId: '73hxvnklatsd83hlasf',
       actionType: 'some-signature-action-type',
       country: 'EE',
+      windowTarget: 'dataset-0-window-target',
     },
     result: 'https://eideasy.eu/single-method-signature?client_id=09812754jf0asyfahpsfuyasyrasfahsd&doc_id=73hxvnklatsd83hlasf&method=some-signature-action-type&country=EE',
   },
@@ -20,12 +21,13 @@ const dataSets = [
       docId: '73hxvnk3jdllasp8398lahsdf',
       actionType: 'some-signature-action-type',
       country: 'FI',
+      windowTarget: 'dataset-1-window-target',
     },
     result: 'https://eideasy.eu/single-method-signature?client_id=poiaudfpuouayh298hdaps&doc_id=73hxvnk3jdllasp8398lahsdf&method=some-signature-action-type&country=FI',
   },
 ];
 
-describe.each(dataSets)('windowOpen should center the window for:', (dataSet) => {
+describe.each(dataSets)('Signature should open the window at the correct url for dataset:', (dataSet) => {
   it(`dataset ${dataSet.set}`, () => {
     const signature = new Signature({
       baseUrl: dataSet.baseUrl,
