@@ -11,7 +11,7 @@ const dataSets = [
       country: 'EE',
       windowTarget: 'dataset-0-window-target',
     },
-    result: 'https://eideasy.eu/single-method-signature?client_id=09812754jf0asyfahpsfuyasyrasfahsd&doc_id=73hxvnklatsd83hlasf&method=some-signature-action-type&country=EE',
+    result: 'https://eideasy.eu/single-method-signature?client_id=09812754jf0asyfahpsfuyasyrasfahsd&doc_id=73hxvnklatsd83hlasf&method=some-signature-action-type&country=EE&window_target=dataset-0-window-target',
   },
   {
     set: 1,
@@ -23,7 +23,7 @@ const dataSets = [
       country: 'FI',
       windowTarget: 'dataset-1-window-target',
     },
-    result: 'https://eideasy.eu/single-method-signature?client_id=poiaudfpuouayh298hdaps&doc_id=73hxvnk3jdllasp8398lahsdf&method=some-signature-action-type&country=FI',
+    result: 'https://eideasy.eu/single-method-signature?client_id=poiaudfpuouayh298hdaps&doc_id=73hxvnk3jdllasp8398lahsdf&method=some-signature-action-type&country=FI&window_target=dataset-1-window-target',
   },
 ];
 
