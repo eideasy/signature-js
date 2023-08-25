@@ -32,14 +32,17 @@ class EidEasy {
     onPopupWindowClosed = () => {
     },
     loggingEnabled = false,
+    instanceId = null,
   }: {
     baseUrl?: string,
     onSuccess?: Function,
     onFail?: Function,
     onPopupWindowClosed?: Function,
     loggingEnabled?: boolean,
+    instanceId?: string,
   }) {
-    const instanceId = this.generateInstanceId();
+    // eslint-disable-next-line no-param-reassign
+    instanceId = instanceId || this.generateInstanceId();
     this.logger = new Logger({ enabled: loggingEnabled, instanceId });
     this.baseUrl = baseUrl;
     this.onSuccess = onSuccess;
