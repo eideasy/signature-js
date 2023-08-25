@@ -147,6 +147,12 @@ class EidEasy {
           self.handleSuccess();
           return;
         }
+
+        // We need to take care of the situations where we've done window.clearTimeout(this.pollTimeout);
+        // but the promise resolves after that. Which in turn would trigger a new poll to start unintentionally.
+        if (this.pollTimeout === null) {
+          return;
+        }
         self.poll(docId, clientId);
       }).catch((error) => {
         self.logger.info(error);
