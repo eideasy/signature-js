@@ -25,6 +25,24 @@ const dataSets = [
     },
     result: 'https://eideasy.eu/single-method-signature?client_id=poiaudfpuouayh298hdaps&doc_id=73hxvnk3jdllasp8398lahsdf&method=some-signature-action-type&country=FI&window_target=dataset-1-window-target',
   },
+  {
+    set: 2,
+    baseUrl: 'https://eideasy.eu',
+    args: {
+      clientId: 'poiaudfpuouayh298hdaps',
+      docId: '73hxvnk3jdllasp8398lahsdf',
+      actionType: 'some-signature-action-type',
+      country: 'FI',
+      windowTarget: 'dataset-2-window-target',
+      inputValues: {
+        email: 'dummy@dummy.it',
+        username: 'dummyuser',
+        phone: '+37212345678',
+        idcode: '987654321',
+      },
+    },
+    result: 'https://eideasy.eu/single-method-signature?client_id=poiaudfpuouayh298hdaps&doc_id=73hxvnk3jdllasp8398lahsdf&method=some-signature-action-type&country=FI&window_target=dataset-2-window-target&email=dummy@dummy.it&username=dummyuser&phone=+37212345678&idcode=987654321',
+  },
 ];
 
 describe.each(dataSets)('Signature should open the window at the correct url for dataset:', (dataSet) => {
