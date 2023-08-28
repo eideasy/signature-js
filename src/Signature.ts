@@ -1,6 +1,7 @@
 import axios from 'axios';
 import windowOpen from './windowOpen';
 import Logger from './Logger';
+import InputValues from './InputValues';
 
 class EidEasy {
   baseUrl: string;
@@ -93,11 +94,13 @@ class EidEasy {
     docId,
     actionType,
     country,
+    inputValues,
   }: {
     clientId: string,
     docId: string,
     actionType: string,
     country: string,
+    inputValues?: InputValues,
   }) {
     this.successCalled = false;
     const self = this;
@@ -107,6 +110,7 @@ class EidEasy {
       actionType,
       country,
       windowTarget: this.windowTarget,
+      inputValues,
     });
 
     const windowOpenResult = windowOpen({
@@ -192,12 +196,14 @@ class EidEasy {
     actionType,
     country,
     windowTarget,
+    inputValues,
   }: {
     clientId: string,
     docId: string,
     actionType: string,
     country: string,
     windowTarget: string,
+    inputValues?: InputValues,
   }): string {
     const base = `${this.baseUrl}/single-method-signature`;
 
@@ -208,6 +214,12 @@ class EidEasy {
       `country=${country}`,
       `window_target=${windowTarget}`,
     ];
+
+    if (inputValues) {
+      Object.keys(inputValues).forEach((key: string) => {
+        urlParams.push(`${key}=${inputValues[key]}`);
+      });
+    }
 
     const queryString = urlParams.join('&');
 
