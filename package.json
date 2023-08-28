@@ -1,9 +1,9 @@
 {
   "name": "@eid-easy/signature-js",
-  "version": "1.1.0",
-  "sri": "sha256-CHCebWHB1jciu55hoikFG5KYnkkQBTt60brrGLKv+2k=",
-  "productionReleaseVersion": "1.1.0",
-  "productionReleaseSri": "sha256-CHCebWHB1jciu55hoikFG5KYnkkQBTt60brrGLKv+2k=",
+  "version": "1.2.0",
+  "sri": "sha256-Y4ZCo7Uo2VNEMokkngSz+4GRBod1N3EOB8ygcYrItxw=",
+  "productionReleaseVersion": "1.2.0",
+  "productionReleaseSri": "sha256-Y4ZCo7Uo2VNEMokkngSz+4GRBod1N3EOB8ygcYrItxw=",
   "description": "Official eID Easy browser-side JavaScript library. You can use signature-js to handle eID Easy signing flows in your web application.",
   "main": "dist/eideasy-signature.js",
   "files": [
