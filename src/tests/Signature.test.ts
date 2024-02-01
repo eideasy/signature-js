@@ -51,7 +51,6 @@ describe.each(dataSets)('Signature should open the window at the correct url for
   it(`dataset ${dataSet.set}`, () => {
     const signature = new Signature({
       baseUrl: dataSet.baseUrl,
-      language: dataSet.language,
     });
     expect(signature.getSingleMethodSignaturePageUrl(dataSet.args)).toEqual(dataSet.result);
   });

@@ -6,8 +6,6 @@ import InputValues from './InputValues';
 class EidEasy {
   baseUrl: string;
 
-  language: string;
-
   openedWindow: Window;
 
   onSuccess: Function;
@@ -28,7 +26,6 @@ class EidEasy {
 
   constructor({
     baseUrl = 'https://id.eideasy.com',
-    language = null,
     onSuccess = () => {
     },
     onFail = () => {
@@ -39,7 +36,6 @@ class EidEasy {
     instanceId = null,
   }: {
     baseUrl?: string,
-    language?: string,
     onSuccess?: Function,
     onFail?: Function,
     onPopupWindowClosed?: Function,
@@ -50,7 +46,6 @@ class EidEasy {
     instanceId = instanceId || this.generateInstanceId();
     this.logger = new Logger({ enabled: loggingEnabled, instanceId });
     this.baseUrl = baseUrl;
-    this.language = language;
     this.onSuccess = onSuccess;
     this.onFail = onFail;
     this.onPopupWindowClosed = onPopupWindowClosed;
@@ -99,12 +94,14 @@ class EidEasy {
     docId,
     actionType,
     country,
+    language,
     inputValues,
   }: {
     clientId: string,
     docId: string,
     actionType: string,
     country: string,
+    language?: string,
     inputValues?: InputValues,
   }) {
     this.successCalled = false;
@@ -114,6 +111,7 @@ class EidEasy {
       docId,
       actionType,
       country,
+      language,
       windowTarget: this.windowTarget,
       inputValues,
     });
@@ -200,6 +198,7 @@ class EidEasy {
     docId,
     actionType,
     country,
+    language,
     windowTarget,
     inputValues,
   }: {
@@ -207,6 +206,7 @@ class EidEasy {
     docId: string,
     actionType: string,
     country: string,
+    language?: string,
     windowTarget: string,
     inputValues?: InputValues,
   }): string {
@@ -220,8 +220,8 @@ class EidEasy {
       `window_target=${windowTarget}`,
     ];
 
-    if (this.language) {
-      urlParams.push(`lang=${this.language}`);
+    if (language) {
+      urlParams.push(`lang=${language}`);
     }
 
     if (inputValues) {
