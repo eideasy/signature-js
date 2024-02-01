@@ -6,6 +6,8 @@ import InputValues from './InputValues';
 class EidEasy {
   baseUrl: string;
 
+  language: string;
+
   openedWindow: Window;
 
   onSuccess: Function;
@@ -26,6 +28,7 @@ class EidEasy {
 
   constructor({
     baseUrl = 'https://id.eideasy.com',
+    language = 'en',
     onSuccess = () => {
     },
     onFail = () => {
@@ -36,6 +39,7 @@ class EidEasy {
     instanceId = null,
   }: {
     baseUrl?: string,
+    language?: string,
     onSuccess?: Function,
     onFail?: Function,
     onPopupWindowClosed?: Function,
@@ -46,6 +50,7 @@ class EidEasy {
     instanceId = instanceId || this.generateInstanceId();
     this.logger = new Logger({ enabled: loggingEnabled, instanceId });
     this.baseUrl = baseUrl;
+    this.language = language;
     this.onSuccess = onSuccess;
     this.onFail = onFail;
     this.onPopupWindowClosed = onPopupWindowClosed;
@@ -211,6 +216,7 @@ class EidEasy {
       `client_id=${clientId}`,
       `doc_id=${docId}`,
       `method=${actionType}`,
+      `lang=${this.language}`,
       `country=${country}`,
       `window_target=${windowTarget}`,
     ];
