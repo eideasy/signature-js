@@ -16,8 +16,8 @@ const dataSets = [
   {
     set: 1,
     baseUrl: 'https://eideasy.eu',
-    language: 'en',
     args: {
+      language: 'en',
       clientId: 'poiaudfpuouayh298hdaps',
       docId: '73hxvnk3jdllasp8398lahsdf',
       actionType: 'some-signature-action-type',
@@ -29,8 +29,8 @@ const dataSets = [
   {
     set: 2,
     baseUrl: 'https://eideasy.eu',
-    language: 'et',
     args: {
+      language: 'et',
       clientId: 'poiaudfpuouayh298hdaps',
       docId: '73hxvnk3jdllasp8398lahsdf',
       actionType: 'some-signature-action-type',
