@@ -11,11 +11,12 @@ const dataSets = [
       country: 'EE',
       windowTarget: 'dataset-0-window-target',
     },
-    result: 'https://eideasy.eu/single-method-signature?client_id=09812754jf0asyfahpsfuyasyrasfahsd&doc_id=73hxvnklatsd83hlasf&method=some-signature-action-type&lang=en&country=EE&window_target=dataset-0-window-target',
+    result: 'https://eideasy.eu/single-method-signature?client_id=09812754jf0asyfahpsfuyasyrasfahsd&doc_id=73hxvnklatsd83hlasf&method=some-signature-action-type&country=EE&window_target=dataset-0-window-target',
   },
   {
     set: 1,
     baseUrl: 'https://eideasy.eu',
+    language: 'en',
     args: {
       clientId: 'poiaudfpuouayh298hdaps',
       docId: '73hxvnk3jdllasp8398lahsdf',
@@ -23,7 +24,7 @@ const dataSets = [
       country: 'FI',
       windowTarget: 'dataset-1-window-target',
     },
-    result: 'https://eideasy.eu/single-method-signature?client_id=poiaudfpuouayh298hdaps&doc_id=73hxvnk3jdllasp8398lahsdf&method=some-signature-action-type&lang=en&country=FI&window_target=dataset-1-window-target',
+    result: 'https://eideasy.eu/single-method-signature?client_id=poiaudfpuouayh298hdaps&doc_id=73hxvnk3jdllasp8398lahsdf&method=some-signature-action-type&country=FI&window_target=dataset-1-window-target&lang=en',
   },
   {
     set: 2,
@@ -42,7 +43,7 @@ const dataSets = [
         idcode: '987654321',
       },
     },
-    result: 'https://eideasy.eu/single-method-signature?client_id=poiaudfpuouayh298hdaps&doc_id=73hxvnk3jdllasp8398lahsdf&method=some-signature-action-type&lang=et&country=FI&window_target=dataset-2-window-target&email=dummy@dummy.it&username=dummyuser&phone=+37212345678&idcode=987654321',
+    result: 'https://eideasy.eu/single-method-signature?client_id=poiaudfpuouayh298hdaps&doc_id=73hxvnk3jdllasp8398lahsdf&method=some-signature-action-type&country=FI&window_target=dataset-2-window-target&lang=et&email=dummy@dummy.it&username=dummyuser&phone=+37212345678&idcode=987654321',
   },
 ];
 

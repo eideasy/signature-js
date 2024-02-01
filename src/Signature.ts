@@ -28,7 +28,7 @@ class EidEasy {
 
   constructor({
     baseUrl = 'https://id.eideasy.com',
-    language = 'en',
+    language = null,
     onSuccess = () => {
     },
     onFail = () => {
@@ -216,10 +216,13 @@ class EidEasy {
       `client_id=${clientId}`,
       `doc_id=${docId}`,
       `method=${actionType}`,
-      `lang=${this.language}`,
       `country=${country}`,
       `window_target=${windowTarget}`,
     ];
+
+    if (this.language) {
+      urlParams.push(`lang=${this.language}`);
+    }
 
     if (inputValues) {
       Object.keys(inputValues).forEach((key: string) => {
