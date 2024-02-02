@@ -1,3 +1,12 @@
+# [1.3.0](https://github.com/eideasy/signature-js/compare/v1.2.0...v1.3.0) (2024-02-02)
+
+
+### Features
+
+* Add language config for single method popup ([#10](https://github.com/eideasy/signature-js/issues/10)) ([c21f847](https://github.com/eideasy/signature-js/commit/c21f8478625b7e2fb817d7aec28964f804911d9d))
+
+
+
 # [1.2.0](https://github.com/eideasy/signature-js/compare/v1.1.0...v1.2.0) (2023-08-28)
 
 
