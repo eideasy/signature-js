@@ -94,12 +94,14 @@ class EidEasy {
     docId,
     actionType,
     country,
+    language,
     inputValues,
   }: {
     clientId: string,
     docId: string,
     actionType: string,
     country: string,
+    language?: string,
     inputValues?: InputValues,
   }) {
     this.successCalled = false;
@@ -109,6 +111,7 @@ class EidEasy {
       docId,
       actionType,
       country,
+      language,
       windowTarget: this.windowTarget,
       inputValues,
     });
@@ -195,6 +198,7 @@ class EidEasy {
     docId,
     actionType,
     country,
+    language,
     windowTarget,
     inputValues,
   }: {
@@ -202,6 +206,7 @@ class EidEasy {
     docId: string,
     actionType: string,
     country: string,
+    language?: string,
     windowTarget: string,
     inputValues?: InputValues,
   }): string {
@@ -214,6 +219,10 @@ class EidEasy {
       `country=${country}`,
       `window_target=${windowTarget}`,
     ];
+
+    if (language) {
+      urlParams.push(`lang=${language}`);
+    }
 
     if (inputValues) {
       Object.keys(inputValues).forEach((key: string) => {
